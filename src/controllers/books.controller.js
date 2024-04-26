@@ -9,7 +9,7 @@ export const getBooks = async (req, res) =>
 export const getBooksbyPattern = async (req, res) => 
 {
     try{
-        const [result] = await pool.query(`select cod as code, name as title, autor, editorial, pv, if((cant_SNTG + cant_STC + cant_ALYZ)>0, true, false) as isAvailable from genesisDB.books inner join genesisDB.ware_books on genesisDB.books.cod = genesisDB.ware_books.cod_book where genesisDB.books.cod like '%GN%' and concat(name, " ", autor) like '%${req.params.pattern}%';`);
+        const [result] = await pool.query(`select concat(it.code,"_",p.id) as code, p.title as title, p.autor as autor, p.publisher as editorial, wp.pvNew as pv, if((select sum(wp.qtyNew) from genesisDB.ware_product as wp inner join genesisDB.product pe on wp.idProduct = pe.id where wp.idProduct = p.id and wp.isEnabled = True)>0, true, false) as isAvailable from genesisDB.ware_product wp inner join genesisDB.product p on wp.idProduct = p.id inner join genesisDB.item it on p.idItem = it.id where idWare = 4 and isEnabled = True and concat(p.title, " ", p.autor) like '%${req.params.pattern}%';`);
         
         // if(result.length <= 0) return res.status(404).json({
         //     message: "no book matched"
