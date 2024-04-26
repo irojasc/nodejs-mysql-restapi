@@ -1,14 +1,14 @@
 import { Router } from "express";
 
-import { getBooks, createBook, updateBook, deleteBook, getBooksbyPattern } from "../controllers/books.controller.js";
+import { getProducts, createProduct, updateProduct, deleteProduct, getProductsbyPattern } from "../controllers/books.controller.js";
 
 const router = Router();
 
-router.get('/books', getBooks );
-router.get('/books/:pattern', getBooksbyPattern );
-router.post('/books', createBook);
-router.put('/books', updateBook );
-router.delete('/books', deleteBook);
+router.get('/products', getProducts );
+router.get('/products/:pattern', getProductsbyPattern );
+router.post('/products', createProduct);
+router.put('/products', updateProduct );
+router.delete('/products', deleteProduct);
 
 
 export default router;
