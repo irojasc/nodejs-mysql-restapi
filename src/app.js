@@ -2,8 +2,6 @@ import express from "express";
 import booksRoutes from "./routes/books.routes.js";
 import cors from "cors";
 
-
-
 const app = express();
 
 app.use(cors());
