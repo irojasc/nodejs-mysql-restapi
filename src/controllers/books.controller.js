@@ -74,7 +74,9 @@ export const isUserRegistered = async (req, res) => {
         const [result] = await pool.query(`select pw from genesisDB.user where user = '${req.body.user}' and enabled = true;`);
         const validPass = await decode(req.body.pwd, result[0].pw)
 
-        if (!validPass) return res.json( {message: "Invalid Credentials"})
+        if (!validPass) return res.json( {
+            result: false,
+            message: "Invalid Credentials"})
         
         res.json({
             result: true,
